@@ -1,0 +1,70 @@
+import TerminalIO.*; 
+public class Arraymenu {
+
+	public static void main(String[] args) { 
+		KeyboardReader reader = new KeyboardReader();
+		int[] nums = new int[10];
+		boolean exit = true; 
+		System.out.println("Welcome to the ARRAY.fun program!");
+		
+		do{
+		System.out.println("\nHere are your options to do with your array. (default size = 10)	");
+		System.out.println("1. Randomize integers\n2. Half all numbers\n3. Print array\n4. Reverse array numbers");
+		System.out.println("5. Scale array\n6. Find mean\n7. Resize array\n8. Exit program");
+		int menu_input = reader.readInt();
+		
+		switch(menu_input){
+			case 1: for(int i=0; i<nums.length; i++){
+						nums[i]=i*100;
+						nums[i]=(int)(Math.random()*10+1); 
+					}break;							
+			case 2: for(int i=0; i<nums.length; i++){
+						nums[i]/=2;
+					}break;
+			case 3: for(int i=0; i<nums.length;i++){
+						System.out.println("Number"+i+":"+nums[i]);
+					}break;
+			case 4: int[] holder = new int[nums.length];
+					for (int i=0; i<nums.length; i++){
+						holder[nums.length-1-i]=nums[i];
+					}nums=holder;
+					break;
+			case 5: System.out.println("Please enter a value to scale the array by a whole number\n");
+					int scaler = reader.readInt();
+					if (scaler<1) System.out.println("Please enter an integer above 0");
+					else 
+						for(int i=0; i<nums.length;i++){
+							nums[i]*=scaler; 
+					}break;
+			case 6: int sum=0; int average=0;
+					for(int i=0; i<nums.length;i++){
+						sum+=nums[i];
+					}average=sum/nums.length; 
+					System.out.println("The average of the array is: "+average);
+					break;
+			case 7:	System.out.println("Please select a new integer size for the array\n");
+					int size = reader.readInt();
+					if(nums.length<size){
+						int[] bignums = new int[size];
+						for(int i=0; i<nums.length;i++){
+							bignums[i]=nums[i];
+						}for(int i=nums.length; i<bignums.length; i++){
+							bignums[i]=0;
+						}nums=bignums;
+					}else if(nums.length>size && size>0){
+						int[] smallnums = new int[size];
+						for(int i=0; i<smallnums.length; i++){
+							smallnums[i]=nums[i];
+						}nums=smallnums;
+					}else System.out.println("Enter a value above 0 please.");				
+					break;				
+			case 8: System.out.println("You have exited the program! Come again.");
+					exit=false;
+					break;
+			default: System.out.println("Enter a value betweeen 1 and 8");
+					 break;
+		}
+		}while (exit);
+	}
+
+}
