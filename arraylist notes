@@ -1,0 +1,37 @@
+/*Array list notes
+ *9/18/17
+ *No methods in arrays. Arraylists only have methods
+ */
+
+import java.util.*; //must import
+public class FunWithArrays {
+
+	public static void main(String[] args){
+		// ArrayList list = new ArrayList() generic object arrays; Only excludes primitive data types - int, double, boolean etc.
+		ArrayList<String> list1 = new ArrayList<String>(); //Templated arraylist. gives data types
+
+		list1.add("Bill");		//no need for size
+		list1.add("Joe");
+		list1.add("Laura");
+		list1.add(1, "Lyle");   //inserts at the index value
+
+		list1.remove(0);		//two ways to remove values- at index or actual object
+		list1.remove("Bill");
+
+		list1.set(1, "Steve");  //changes value at index
+
+		System.out.println(list1.get(0)); //accesses object
+
+		System.out.println(list1); //has toString method
+		System.out.println(list1.size()); //returns number of things inside arraylist
+
+
+		//Wrapper Classes: circumventing arraylist exclusions
+		//Integer, Double, Character, Boolean
+		ArrayList<Integer> numbers=new ArrayList<Integer>();  //only one value inside - one integer. Number = object
+		//old way numbers.add(new Integer(5));
+		numbers.add(5); // "Autoboxing" - making integer and adding to list
+		int num=numbers.get(0);
+		System.out.println(num);
+	}
+}
