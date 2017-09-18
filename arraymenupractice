@@ -1,63 +1,70 @@
-import TerminalIO.*; 
+/*Array Menu Program
+ *By Jack Wang
+ *9/18/17
+ *
+ *This program allows the user to create an array of real numbers
+ *and perform a number of operations on the values in the array
+ *and the array itself.
+ */
+
+
+import TerminalIO.*; //External jar for keyboard reader
 public class Arraymenu {
 
-	public static void main(String[] args) { 
-		KeyboardReader reader = new KeyboardReader();
-		int[] nums = new int[10];
-		boolean exit = true; 
-		System.out.println("Welcome to the ARRAY.fun program!");
-		
-		do{
-		System.out.println("\nHere are your options to do with your array. (default size = 10)	");
+	public static void main(String[] args) {
+		KeyboardReader reader = new KeyboardReader(); //instanstiating keyboard reader object
+		double[] nums = new double[10];				  //declaring the array with default size of 10
+		boolean exit = true;						  // boolean keeping track of loop
+		System.out.println("Welcome to the ARRAY.fun program!"); //Initial prompt of user
+
+		do{		//loop for menu
+		System.out.println("\nHere are your options to do with your array. (Default size = 10)	"); //user UI
 		System.out.println("1. Randomize integers\n2. Half all numbers\n3. Print array\n4. Reverse array numbers");
 		System.out.println("5. Scale array\n6. Find mean\n7. Resize array\n8. Exit program");
-		int menu_input = reader.readInt();
-		
-		switch(menu_input){
-			case 1: for(int i=0; i<nums.length; i++){
-						nums[i]=i*100;
-						nums[i]=(int)(Math.random()*10+1); 
-					}break;							
-			case 2: for(int i=0; i<nums.length; i++){
+		int menu_input = reader.readInt(); //reading menu input
+
+		switch(menu_input){  //switch case for 8 menu options and erroroneous response
+			case 1: for(int i=0; i<nums.length; i++){ //sets random numbers to array values
+						nums[i]=(int)(Math.random()*100-100);
+					}break;
+			case 2: for(int i=0; i<nums.length; i++){ //divides all array values by 2
 						nums[i]/=2;
 					}break;
-			case 3: for(int i=0; i<nums.length;i++){
+			case 3: for(int i=0; i<nums.length;i++){  //prints out all array values
 						System.out.println("Number"+i+":"+nums[i]);
 					}break;
-			case 4: int[] holder = new int[nums.length];
+			case 4: double[] holder = new double[nums.length];  //declaring temporary array to hold reversed arrays - same size
 					for (int i=0; i<nums.length; i++){
-						holder[nums.length-1-i]=nums[i];
-					}nums=holder;
+						holder[nums.length-1-i]=nums[i]; //assigns first num value to the last space in holder
+					}nums=holder;						 //assigns all holder values to nums
 					break;
-			case 5: System.out.println("Please enter a value to scale the array by a whole number\n");
-					int scaler = reader.readInt();
-					if (scaler<1) System.out.println("Please enter an integer above 0");
-					else 
-						for(int i=0; i<nums.length;i++){
-							nums[i]*=scaler; 
+			case 5: System.out.println("Please enter a value to scale the array by a whole number\n"); //prompting user for scale value input
+					double scaler = reader.readDouble();	//double scale value from reading user input
+					for(int i=0; i<nums.length;i++){		//multiplying each value by scale value
+							nums[i]*=scaler;
 					}break;
-			case 6: int sum=0; int average=0;
+			case 6: double sum=0; double average=0;  	//declaring sum holding total of all arrays
 					for(int i=0; i<nums.length;i++){
-						sum+=nums[i];
-					}average=sum/nums.length; 
-					System.out.println("The average of the array is: "+average);
+						sum+=nums[i];					//adding up all array numbers
+					}average=sum/nums.length;			//dividing by number of values (length)
+					System.out.println("The average of the array is: "+average); //returning to user average
 					break;
-			case 7:	System.out.println("Please select a new integer size for the array\n");
-					int size = reader.readInt();
-					if(nums.length<size){
-						int[] bignums = new int[size];
+			case 7:	System.out.println("Please select a new positive integer size for the array\n"); //prompting user for positive int size of array
+					int size = reader.readInt(); //reading int input
+					if(nums.length<size){		//case for larger size input
+						double[] bignums = new double[size];	//creating a holder
 						for(int i=0; i<nums.length;i++){
-							bignums[i]=nums[i];
+							bignums[i]=nums[i];					//assigning original values to holder array
 						}for(int i=nums.length; i<bignums.length; i++){
-							bignums[i]=0;
-						}nums=bignums;
-					}else if(nums.length>size && size>0){
-						int[] smallnums = new int[size];
+							bignums[i]=0; 						//filling rest of holder array with zeroes
+						}nums=bignums;							//setting holder values to original array
+					}else if(nums.length>size && size>0){		//case for smaller size input
+						int[] smallnums = new int[size];		//declaring
 						for(int i=0; i<smallnums.length; i++){
 							smallnums[i]=nums[i];
 						}nums=smallnums;
-					}else System.out.println("Enter a value above 0 please.");				
-					break;				
+					}else System.out.println("Enter a value above 0 please.");
+					break;
 			case 8: System.out.println("You have exited the program! Come again.");
 					exit=false;
 					break;
