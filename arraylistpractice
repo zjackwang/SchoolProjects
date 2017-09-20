@@ -1,0 +1,59 @@
+/**
+ *Arraylist program
+ *By: Jack Wang
+ *This programs allows the user to create an arraylist of strings
+ *and perform a number of tasks such as adding/removing names, averaging
+ *name lengths, etc.
+ */
+import TerminalIO.*;
+import java.util.*;
+public class ArraylistPractice {
+
+
+    public static void main(String[] args) {
+		   	KeyboardReader reader=new KeyboardReader();
+		   	ArrayList<String> words = new ArrayList<String>();
+	   		boolean exit = true;
+	   		System.out.println("Welcome to the Mant-a-rraylist fun string list program!");
+	   		System.out.println("You have many options to choose from in this fun program");
+
+		   	do{
+		   		System.out.println("1. Add a name to the list!\n2. Get the size of the list!");
+		   		System.out.println("3. Remove a name from the list!\n4. Average the name lengths!\n5. Change a name!");
+		   		System.out.println("6. Find word in list (amount)!\n7. Find words beginning with letter!\n8. Exit");
+
+		   		int choice=reader.readInt();
+		   		switch(choice){
+		   			case 1: String name = reader.readLine("Please enter a name: ");
+		   					words.add(name);
+		   					break;
+		   			case 2: int size = words.size();
+		   					System.out.println("The amount of terms in this list is:" +size);
+		   					break;
+		   			case 3: String exname = reader.readLine("Please enter the name you want to remove");
+		   					for(int i=0; i<words.size(); i++){
+		   						if(words.get(i).equals(exname)) 
+		   							words.remove(words.get(i));
+		   					}break;
+		   			case 4: int sum=0;
+		   					for(int i=0; i<words.size(); i++){
+		   						String addedup= (String)(words.get(i));
+		   						sum+=addedup.length();
+		   					}System.out.println("The average of all word lengths is: " +sum/words.size());
+		   					break;
+		   			case 5: String whatschanged = reader.readLine("Please enter a name you'd like to change");
+		   					String newword = reader.readLine("Now enter what you would like to change that to");
+		   					for(int i=0; i<words.size(); i++){
+		   						if (words.get(i).equals(whatschanged))
+		   							words.set(i, newword);
+		   					}break;
+		   			case 6:
+		   			case 7:
+		   			case 8: System.out.println("You have exited the program. Thanks for your participation");
+		   					break;
+		   			default: System.out.println("Please enter a valid number");
+		   					break;
+		   			}
+		   		}while (exit);
+    }
+}
