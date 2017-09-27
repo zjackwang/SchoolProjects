@@ -1,36 +1,57 @@
-/**
+/**For each loop practice
  * By: Jack Wang
- *This program uses for each loops in three applications
+ *This program uses for each loops in three applications:
+ *1.Creating, assigning values to, and printing out an int array
+ *2.Creating, assigning user input to, and printing length of a string arraylist
+ *3.Creating, adding, and printing out an arraylist of PikaPet objects
  */
-import java.util.*;
+/*importing external jars for keyboardreader and arraylist*/
+import java.util.*; 
 import TerminalIO.*;
 public class For_each_practice {
 
 
     public static void main(String[] args) {
-
-     double[] reals = new double[100];
-     for(int i=0; i<100; i++){
+     /*Task one: 100 double array
+     Creating 100 size double array
+     assigning random real values from 0-100 to array*/
+     double[] reals = new double[100];	
+     for(int i=0; i<100; i++){			
      	reals[i]=Math.random()*100;
      }
-     int sum=0;
-     for(double r: reals){
+     double sum=0;			//initializing real sum value 
+     for(double r: reals){	//for each loop, adding each successive value to sum
      	sum+=r;
-     	System.out.println(r);
+     	System.out.println(r); //printing out each value of array
      }
-     System.out.println("The sum is " +sum);
+     System.out.println("The sum is " +sum); //printint out sum of all array values
 
-     KeyboardReader reader=new KeyboardReader();
-     ArrayList<String> words=new ArrayList<String>();
-     for(int i=0; i<10; i++){
-     	words.add(reader.readLine("Please enter a word into the arraylist:\n"));
+     /*Task two: string arraylist*/
+     KeyboardReader reader=new KeyboardReader(); //instantiating keyboardreader 
+     ArrayList<String> words=new ArrayList<String>(); //creating arraylist 
+     for(int i=0; i<10; i++){ //for loop allowing user to input string to assign in arraylist
+     	words.add(reader.readLine("Please enter a word into the arraylist:\n")); //adding reader input
      }
-     String longest=words.get(0);
-     int characters=0;
-	 for(String s: words){
-	 	if(s.length()>longest.length()) longest=s;
-	 	characters+=s.length();
+     String longest=words.get(0); //initializing default longest word as 1st word
+     int characters=0;	//initializing integer for sum of string characters
+	 for(String s: words){	
+	 	if(s.length()>longest.length()) longest=s; //if the current string is longer than previous, set that as new longest
+	 	characters+=s.length();//adding each string's length to sum of chars
 	 }
+	 System.out.println(characters); //printing out character sum
 	 
+	 /*Task three: Pet object arraylist*/ 
+	 PikaPet pet1=new PikaPet(); 	//instantiating three pikapet objects
+	 PikaPet pet2=new PikaPet("wolfy", "wolf");
+	 PikaPet pet3=new PikaPet("doggy", "dog");
+	 /*creating arraylist of pikapets and adding to arraylist each pikapet object*/
+	 ArrayList<PikaPet> pets = new ArrayList<PikaPet>();
+	 pets.add(pet1);
+	 pets.add(pet2);
+	 pets.add(pet3);
+	 /*printing out each pikapet using for each loop*/
+	 for(PikaPet p: pets){
+		 System.out.println(p);
+	 }	 
     }
 }
