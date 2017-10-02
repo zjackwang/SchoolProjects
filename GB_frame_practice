@@ -1,0 +1,63 @@
+/**
+ * @(#)GB_Frame_Practice.java
+ *
+ *
+ * @Jack Wang
+ */
+
+import BreezySwing.*;
+import java.awt.*;
+import javax.swing.*;
+public class GB_Frame_Practice extends GBFrame {
+
+    JButton kame = addButton("kameee", 0, 4, 2, 2);
+    JButton hame = addButton("hameee", 10, 4, 10, 10);
+    JButton ha = addButton("HAAAAAAAAA", 20, 4, 10, 10);
+
+	JMenuItem clearPalatte = addMenuItem("other stuff", "clear images");
+    JMenuItem hotNewMI = addMenuItem("Roshe's Stash", "Bleed Nose");
+    JMenuItem perveMI = addMenuItem("Roshe's Stash", "Get Flashed");
+    JMenuItem BoringNewFont = addMenuItem("other stuff", "Change font");
+
+	JLabel picLabel = addLabel("", 10, 5, 10, 10);
+    ImageIcon pic1 = new ImageIcon("kame.jpg");
+    ImageIcon pic2 = new ImageIcon("Hame.jpg");
+    ImageIcon pic3 = new ImageIcon("HA.jpg");
+
+
+    public void menuItemSelected(JMenuItem mi){
+    	if(mi == hotNewMI){
+    		messageBox("Blood streams down your nose");
+    	}
+    	else if (mi == perveMI){
+    		messageBox("You got flashed!");
+
+    	}
+    	else if (mi == BoringNewFont){
+
+    	}
+    	else if (mi == clearPalatte){
+			picLabel.setIcon(null);
+    	}
+    }
+    public void buttonClicked(JButton buttonObj) {
+		if (buttonObj == kame){
+			 picLabel.setIcon(pic1);
+
+		}
+		else if (buttonObj == hame){
+			 picLabel.setIcon(pic2);
+
+		}
+		else if (buttonObj == ha){
+			 picLabel.setIcon(pic3);
+		}
+    }
+
+    public static void main(String[] args) {
+     Frame frm = new GB_Frame_Practice();
+     frm.setSize(1000, 1000);
+     frm.setVisible(true);
+
+    }
+}
