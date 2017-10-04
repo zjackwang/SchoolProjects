@@ -1,4 +1,4 @@
-/**
+/*
  * @(#)GB_Frame_Practice.java
  *
  *
@@ -10,34 +10,57 @@ import java.awt.*;
 import javax.swing.*;
 public class GB_Frame_Practice extends GBFrame {
 
+	private int numClicked;
+
     JButton kame = addButton("kameee", 0, 4, 2, 2);
     JButton hame = addButton("hameee", 10, 4, 10, 10);
     JButton ha = addButton("HAAAAAAAAA", 20, 4, 10, 10);
+	JButton clickMe = addButton("CLICK ME", 10, 10, 5, 5);
 
 	JMenuItem clearPalatte = addMenuItem("other stuff", "clear images");
     JMenuItem hotNewMI = addMenuItem("Roshe's Stash", "Bleed Nose");
     JMenuItem perveMI = addMenuItem("Roshe's Stash", "Get Flashed");
+    JMenuItem turtleMI = addMenuItem("Roshe's Stash", "Turtle Ride");
     JMenuItem BoringNewFont = addMenuItem("other stuff", "Change font");
+	JMenuItem clickCount = addMenuItem("other stuff", "Check Clicks");
+
+	JCheckBox checkb = addCheckBox("", 10, 2, 5, 5);
 
 	JLabel picLabel = addLabel("", 10, 5, 10, 10);
     ImageIcon pic1 = new ImageIcon("kame.jpg");
     ImageIcon pic2 = new ImageIcon("Hame.jpg");
     ImageIcon pic3 = new ImageIcon("HA.jpg");
 
+	IntegerField numbers = addIntegerField(0, 15, 10, 5, 10);
+	JTextField letters = addTextField("", 20, 15, 5, 10);
 
+	public GB_Frame_Practice(){
+		kame.setVisible(false);
+		hame.setVisible(false);
+		ha.setVisible(false);
+	}
     public void menuItemSelected(JMenuItem mi){
     	if(mi == hotNewMI){
     		messageBox("Blood streams down your nose");
+
     	}
     	else if (mi == perveMI){
     		messageBox("You got flashed!");
 
     	}
+    	else if (mi == turtleMI){
+    		messageBox("Under a hot sun, you cool off with your turtle in the sea");
+    	}
     	else if (mi == BoringNewFont){
+		//	input.setFont(new Font("Garamond", Font.PLAIN, 15));
 
     	}
     	else if (mi == clearPalatte){
 			picLabel.setIcon(null);
+
+    	}
+    	else if (mi == clickCount){
+    		messageBox("You have clicked the box "+numClicked+" times");
     	}
     }
     public void buttonClicked(JButton buttonObj) {
@@ -52,11 +75,14 @@ public class GB_Frame_Practice extends GBFrame {
 		else if (buttonObj == ha){
 			 picLabel.setIcon(pic3);
 		}
+		else if (buttonObj == clickMe){
+			 numClicked++;
+		}
     }
 
     public static void main(String[] args) {
      Frame frm = new GB_Frame_Practice();
-     frm.setSize(1000, 1000);
+     frm.setSize(750, 750);
      frm.setVisible(true);
 
     }
