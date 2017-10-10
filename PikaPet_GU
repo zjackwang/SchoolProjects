@@ -1,0 +1,48 @@
+/**
+ * @(#)PikaPet_GUI.java
+ *
+ *
+ * @Jack Wang
+ * @version 1.00 2017/10/10
+ */
+import BreezySwing.*;
+import java.awt.*;
+import javax.swing.*;
+public class PikaPet_GUI extends GBFrame{
+
+
+	JMenuItem helpItem = addMenuItem("Help", "Instructions");
+    JMenuItem aboutItem = addMenuItem("About", "Creator");
+ 	JMenuItem checkPetItem = addMenuItem("Pet", "Check status");
+    JMenuItem  petImageItem = addMenuItem("Pet", "Check Image");
+	JMenuItem  clearButtonItem = addMenuItem("Pet", "Clear Buttons");
+
+	JButton evolveBu = addButton("Evolve Pet", 0, 0, 4, 4);
+  	JButton feedBu = addButton("Feed Pet", 0, 10, 5, 5);
+    JButton growBu = addButton("Grow Pet", 10, 0, 5, 5);
+	JButton vegasBu = addButton("Vegas Pet", 10, 10, 5, 5);
+	JButton renameBu = addButton("Rename Pet", 5, 5, 5, 5);
+
+    public PikaPet_GUI() {
+		evolveBu.setVisible(false);
+		feedBu.setVisible(false);
+		growBu.setVisible(false);
+		vegasBu.setVisible(false);
+		renameBu.setVisible(false);
+    }
+
+	public void menuItemSelected(JMenuItem mi){
+
+	}
+
+   	public void buttonClicked(JButton buttonObj){
+
+   	 }
+
+    public static void main(String[] args) {
+     Frame frm = new PikaPet_GUI();
+     frm.setSize(1000, 750);
+     frm.setVisible(true);
+	 frm.setTitle("THE REAL PIKAPET GAME");
+    }
+}
