@@ -10,39 +10,194 @@ import java.awt.*;
 import javax.swing.*;
 public class PikaPet_GUI extends GBFrame{
 
-
+	PikaPet pettyWap = new PikaPet();
+	private int track;
 	JMenuItem helpItem = addMenuItem("Help", "Instructions");
     JMenuItem aboutItem = addMenuItem("About", "Creator");
  	JMenuItem checkPetItem = addMenuItem("Pet", "Check status");
     JMenuItem  petImageItem = addMenuItem("Pet", "Check Image");
 	JMenuItem  clearButtonItem = addMenuItem("Pet", "Clear Buttons");
 
-	JButton evolveBu = addButton("Evolve Pet", 0, 0, 4, 4);
+	JButton enterintoBu = addButton("Enter into the wonderful world of PikaPet tm", 10, 10, 50, 50);
+	JButton basicBu = addButton("Generic Pet?", 5, 5, 10, 10);
+	JButton customBu = addButton("Or.. Custom Pet?", 15, 5, 9, 10);
+
+	JButton playPet = addButton("Play with pet", 5, 5, 10, 10);
+	JButton checkPet = addButton("Check on pet", 15, 5, 9, 10);
+
+
+	JButton evolveBu = addButton("Evolve Pet", 0, 0, 5, 5);
   	JButton feedBu = addButton("Feed Pet", 0, 10, 5, 5);
     JButton growBu = addButton("Grow Pet", 10, 0, 5, 5);
 	JButton vegasBu = addButton("Vegas Pet", 10, 10, 5, 5);
-	JButton renameBu = addButton("Rename Pet", 5, 5, 5, 5);
 
+	JButton enterBu = addButton("Enter", 200, 200, 4, 4);
+
+	JButton healthBu = addButton("Get Health", 0, 0, 5, 5);
+	JButton ageBu = addButton("Get Age", 0, 10, 5, 5);
+	JButton hungerBu = addButton("Get Hunger", 10, 0, 5, 5);
+	JButton nameBu = addButton("Get name", 10, 10, 5, 5);
+	JButton speciesBu = addButton("Get Species", 15, 0, 5, 5);
+
+	JTextField letters = addTextField("Enter desired pet name here", 200, 1, 5, 5);
+	JTextField letters1 = addTextField("Enter desired pet specimen here", 300, 1, 5, 5);
+	JTextField letters2 = addTextField("Enter here", 400, 1, 5, 5);
+	JTextField letters3 = addTextField("Enter Here", 500, 1, 5, 5);
+
+	JLabel picLabel = addLabel("Hi this is me", 500, 5, 10, 10);
+    ImageIcon pic1 = new ImageIcon("frog.jpg");
+    ImageIcon pic2 = new ImageIcon("pikachu_hi_pokemon.jpg");
+    ImageIcon pic3 = new ImageIcon("raikou.jpg");
+    ImageIcon pic4 = new ImageIcon("squirtle.jpg");
+    ImageIcon pic5 = new ImageIcon("Togepi.jpg");
+    ImageIcon pic6 = new ImageIcon("Pokemon-charmander.jpg");
+    ImageIcon pic7 = new ImageIcon("Snorlax.jpg");
     public PikaPet_GUI() {
+    	basicBu.setVisible(false);
+    	customBu.setVisible(false);
 		evolveBu.setVisible(false);
 		feedBu.setVisible(false);
 		growBu.setVisible(false);
 		vegasBu.setVisible(false);
-		renameBu.setVisible(false);
+
+		playPet.setVisible(false);
+		checkPet.setVisible(false);
+
+		healthBu.setVisible(false);
+		ageBu.setVisible(false);
+		hungerBu.setVisible(false);
+		nameBu.setVisible(false);
+		speciesBu.setVisible(false);
+
+		enterBu.setVisible(false);
+		enterintoBu.setVisible(true);
+		letters.setVisible(false);
+		letters1.setVisible(false);
+		letters2.setVisible(false);
+		letters3.setVisible(false);
+
+		picLabel.setVisible(false);
     }
 
 	public void menuItemSelected(JMenuItem mi){
+		if(mi==clearButtonItem){
+				evolveBu.setVisible(false);
+				feedBu.setVisible(false);
+				growBu.setVisible(false);
+				vegasBu.setVisible(false);
 
+		}
 	}
 
    	public void buttonClicked(JButton buttonObj){
+   		if(buttonObj==enterintoBu){
+   			enterintoBu.setVisible(false);
+   			basicBu.setVisible(true);
+   			customBu.setVisible(true);
+   		}
+		if(buttonObj==basicBu){
+			basicBu.setVisible(false);
+   			customBu.setVisible(false);
+			messageBox(pettyWap);
+			playPet.setVisible(true);
+			checkPet.setVisible(true);
+			picLabel.setVisible(true);
+			picLabel.setIcon(pic1);
+		}
+		if(buttonObj==customBu){
+			basicBu.setVisible(false);
+   			customBu.setVisible(false);
+   			letters.setVisible(true);
+   			letters1.setVisible(true);
+   			enterBu.setVisible(true);
+   			track=1;
+		}
+		if(buttonObj==enterBu){
+			letters.setVisible(false);
+   			letters1.setVisible(false);
+   			basicBu.setVisible(false);
+   			customBu.setVisible(false);
+   			enterBu.setVisible(false);
+   			pettyWap.reName(letters.getText());
+   			pettyWap.evolve(letters1.getText());
+   			messageBox(pettyWap);
+   			playPet.setVisible(true);
+			checkPet.setVisible(true);
+			picLabel.setVisible(true);
+			picLabel.setIcon(pic1);
+			switch(track){
+   				case 1: picLabel.setIcon(pic1);break;
+   				case 2: picLabel.setIcon(pic2);break;
+   				case 3: picLabel.setIcon(pic3);break;
+   				case 4: picLabel.setIcon(pic4);break;
+   				case 5: picLabel.setIcon(pic5);break;
+   				case 6: picLabel.setIcon(pic6);break;
+   				case 7: picLabel.setIcon(pic7);break;
+   			}
+		}
+		if(buttonObj==playPet){
+			evolveBu.setVisible(true);
+			feedBu.setVisible(true);
+			growBu.setVisible(true);
+			vegasBu.setVisible(true);
+			playPet.setVisible(false);
+			checkPet.setVisible(false);
+		}
+		if(buttonObj==checkPet){
+			healthBu.setVisible(true);
+			ageBu.setVisible(true);
+			hungerBu.setVisible(true);
+			nameBu.setVisible(true);
+			speciesBu.setVisible(true);
+			playPet.setVisible(false);
+			checkPet.setVisible(false);
+		}
+		if(buttonObj==evolveBu){
+			evolveBu.setVisible(false);
+			feedBu.setVisible(false);
+			growBu.setVisible(false);
+			vegasBu.setVisible(false);
+			enterBu.setVisible(true);
+			letters.setVisible(true);
+   			letters1.setVisible(true);
+   			if(track!=7) track++;
+   			else track=1;
 
+		}
+		if(buttonObj==feedBu){
+			pettyWap.feedPet();
+			messageBox(pettyWap);
+		}
+		if(buttonObj==growBu){
+			pettyWap.growPet();
+			messageBox(pettyWap);
+		}
+		if(buttonObj==vegasBu){
+			pettyWap.throwHealth();
+			messageBox(pettyWap);
+		}
+		if(buttonObj==healthBu){
+			messageBox("I have "+pettyWap.getHealth() + "health....");
+		}
+		if(buttonObj==ageBu){
+			messageBox("What's my age? It's "+ pettyWap.getAge() + " MIlennia old!");
+		}
+		if(buttonObj==hungerBu){
+			messageBox(pettyWap.getHunger());
+		}
+		if(buttonObj==nameBu){
+			messageBox(pettyWap.getName());
+		}
+		if(buttonObj==speciesBu){
+			messageBox(pettyWap.getSpecies());
+		}
    	 }
 
     public static void main(String[] args) {
      Frame frm = new PikaPet_GUI();
-     frm.setSize(1000, 750);
+     frm.setSize(1500, 1000);
      frm.setVisible(true);
 	 frm.setTitle("THE REAL PIKAPET GAME");
     }
 }
+
