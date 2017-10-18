@@ -1,89 +1,238 @@
-/*
- * @(#)GB_Frame_Practice.java
- *
+/**
+ * @(#)PikaPet_GUI.java
+ *@This game utilizes the previously created PikePet class to 
+ *bring to users an interactive virtual pet game with an interface. 
+ *Features in the old text version are brought to the visual forefront, 
+ *complete with images of the pet that changes as the pet evolves.
  *
  * @Jack Wang
+ * @version 1.00 2017/10/10
  */
-
 import BreezySwing.*;
 import java.awt.*;
 import javax.swing.*;
-public class GB_Frame_Practice extends GBFrame {
+public class PikaPet_GUI extends GBFrame{
 
-	private int numClicked;
+	private static final long serialVersionUID = 1L;
+	PikaPet pettyWap = new PikaPet(); //instantiating pet 
+	private int track;	//tracks pet evolution
+	/*creating menu items for helping confused users, 
+	 * crediting creator, and checking pet status */
+	JMenuItem helpItem = addMenuItem("Help", "Instructions");
+    JMenuItem aboutItem = addMenuItem("About", "Creator");
+ 	JMenuItem checkPetItem = addMenuItem("Pet", "Check status");
+ 	/*creating buttons for initially entering game, 
+ 	 * and either selecting default or custom pet parameters*/
+	JButton enterintoBu = addButton("Enter into the wonderful world of PikaPet tm", 10, 10, 50, 50);
+	JButton basicBu = addButton("Generic Pet?", 5, 5, 10, 10);
+	JButton customBu = addButton("Or.. Custom Pet?", 15, 5, 9, 10);
+	
+	JButton playPet = addButton("Play with pet", 5, 5, 10, 10); //button for pet modifiers
+	JButton checkPet = addButton("Check on pet", 15, 5, 9, 10); //button for pet accessors
+	JButton backBu = addButton("Back", 15, 10, 5, 5); //button to return to above 2 buttons
+	/*Buttons for modifying pet- changing species and names,
+	 * decreasing hunger, increasing age, and randomizing health */
+	JButton evolveBu = addButton("Evolve Pet", 0, 0, 5, 5);
+  	JButton feedBu = addButton("Feed Pet", 0, 10, 5, 5);
+    JButton growBu = addButton("Grow Pet", 10, 0, 5, 5);
+	JButton vegasBu = addButton("Vegas Pet", 10, 10, 5, 5);
+	/*Buttons for accessing individual pet status-its health,
+	 * age, hunger, name, and species*/
+	JButton healthBu = addButton("Get Health", 0, 0, 5, 5);
+	JButton ageBu = addButton("Get Age", 0, 10, 5, 5);
+	JButton hungerBu = addButton("Get Hunger", 10, 0, 5, 5);
+	JButton nameBu = addButton("Get name", 10, 10, 5, 5);
+	JButton speciesBu = addButton("Get Species", 15, 0, 5, 5);
+	/*creating text fields for inputing custom pet name/species, 
+	 * and the button to finalize input*/
+	JTextField letters = addTextField("Enter desired pet name here", 200, 1, 5, 5);
+	JTextField letters1 = addTextField("Enter desired pet specimen here", 300, 1, 5, 5);
+	JButton enterBu = addButton("Enter", 200, 200, 4, 4);
+	/*creating label for pictures of pet to attach to*/
+	JLabel picLabel = addLabel("Hi this is me", 500, 5, 10, 10);
+	ImageIcon pic0 = new ImageIcon("questionmark.jpg");
+    ImageIcon pic1 = new ImageIcon("frog.jpg");
+    ImageIcon pic2 = new ImageIcon("pikachu_hi_pokemon.jpg");
+    ImageIcon pic3 = new ImageIcon("raikou.jpg");
+    ImageIcon pic4 = new ImageIcon("squirtle.jpg");
+    ImageIcon pic5 = new ImageIcon("Togepi.jpg");
+    ImageIcon pic6 = new ImageIcon("Pokemon-charmander.jpg");
+    ImageIcon pic7 = new ImageIcon("Snorlax.jpg");
+   
+    public PikaPet_GUI() {
+    	/* initializing all features save first "enter into" button invisible*/
+    	basicBu.setVisible(false);
+    	customBu.setVisible(false);
+		evolveBu.setVisible(false);
+		feedBu.setVisible(false);
+		growBu.setVisible(false);
+		vegasBu.setVisible(false);
 
-    JButton kame = addButton("kameee", 0, 4, 2, 2);
-    JButton hame = addButton("hameee", 10, 4, 10, 10);
-    JButton ha = addButton("HAAAAAAAAA", 20, 4, 10, 10);
-	JButton clickMe = addButton("CLICK ME", 10, 10, 5, 5);
+		playPet.setVisible(false);
+		checkPet.setVisible(false);
 
-	JMenuItem clearPalatte = addMenuItem("other stuff", "clear images");
-    JMenuItem hotNewMI = addMenuItem("Roshe's Stash", "Bleed Nose");
-    JMenuItem perveMI = addMenuItem("Roshe's Stash", "Get Flashed");
-    JMenuItem turtleMI = addMenuItem("Roshe's Stash", "Turtle Ride");
-    JMenuItem BoringNewFont = addMenuItem("other stuff", "Change font");
-	JMenuItem clickCount = addMenuItem("other stuff", "Check Clicks");
+		healthBu.setVisible(false);
+		ageBu.setVisible(false);
+		hungerBu.setVisible(false);
+		nameBu.setVisible(false);
+		speciesBu.setVisible(false);
 
-	JCheckBox checkb = addCheckBox("", 10, 2, 5, 5);
+		enterBu.setVisible(false);
+		enterintoBu.setVisible(true);
+		letters.setVisible(false);
+		letters1.setVisible(false);
 
-	JLabel picLabel = addLabel("", 10, 5, 10, 10);
-    ImageIcon pic1 = new ImageIcon("kame.jpg");
-    ImageIcon pic2 = new ImageIcon("Hame.jpg");
-    ImageIcon pic3 = new ImageIcon("HA.jpg");
+		picLabel.setVisible(false);
+		backBu.setVisible(false);
+    }
 
-	IntegerField numbers = addIntegerField(0, 15, 10, 5, 10);
-	JTextField letters = addTextField("", 20, 15, 5, 10);
-
-	public GB_Frame_Practice(){
-		kame.setVisible(false);
-		hame.setVisible(false);
-		ha.setVisible(false);
+	public void menuItemSelected(JMenuItem mi){
+		if(mi==helpItem){ //if help menu item selected, output instructions
+			messageBox("Hi user, welcome to the pikapet interactive program. Click the buttons to create a pet and do fun (not weird) stuff to it");
+		}
+		if(mi==aboutItem){ //if about menu item selected, output creator's info
+			messageBox("Creator: Jack Wang \n Mentor: Dale Britton \n Education: Colleyville Heritage");
+		}
+		if(mi==checkPetItem){//if check pet menu item selected, output Pet info
+			messageBox("Here is your pet:\n"+pettyWap);
+		}
 	}
-    public void menuItemSelected(JMenuItem mi){
-    	if(mi == hotNewMI){
-    		messageBox("Blood streams down your nose");
 
-    	}
-    	else if (mi == perveMI){
-    		messageBox("You got flashed!");
-
-    	}
-    	else if (mi == turtleMI){
-    		messageBox("Under a hot sun, you cool off with your turtle in the sea");
-    	}
-    	else if (mi == BoringNewFont){
-		//	input.setFont(new Font("Garamond", Font.PLAIN, 15));
-
-    	}
-    	else if (mi == clearPalatte){
-			picLabel.setIcon(null);
-
-    	}
-    	else if (mi == clickCount){
-    		messageBox("You have clicked the box "+numClicked+" times");
-    	}
-    }
-    public void buttonClicked(JButton buttonObj) {
-		if (buttonObj == kame){
-			 picLabel.setIcon(pic1);
+   	public void buttonClicked(JButton buttonObj){
+   		/* if initial button pressed, hide initial button, uncover pet creation buttons*/
+   		if(buttonObj==enterintoBu){
+   			enterintoBu.setVisible(false);
+   			basicBu.setVisible(true);
+   			customBu.setVisible(true);
+   		}
+   		/*if basic option pressed*/
+		if(buttonObj==basicBu){
+			basicBu.setVisible(false); //hiding creation options 
+   			customBu.setVisible(false);
+			playPet.setVisible(true);//uncovering user options -modify or access pet
+			checkPet.setVisible(true);
+			picLabel.setVisible(true);//uncover label and its picture
+			messageBox(pettyWap);	//outputting pet's status 
+			picLabel.setIcon(pic0);	//picture is question mark - default species unknown
+			track=0; //basic pictures start at 0
+		}
+		/*if custom option selected*/
+		if(buttonObj==customBu){
+			basicBu.setVisible(false);	//hiding creation options 
+   			customBu.setVisible(false);
+   			letters.setVisible(true);	//revealing text fields for user input
+   			letters1.setVisible(true);
+   			enterBu.setVisible(true); //revealing enter button to finalize user input
+   			track=1;	//custom pictures start at 1
+		}
+		/*once custom choices/changes are finalized*/
+		if(buttonObj==enterBu){
+			letters.setVisible(false); //hiding text fields
+   			letters1.setVisible(false);
+   			basicBu.setVisible(false);	//hiding pet creation buttons
+   			customBu.setVisible(false);
+   			enterBu.setVisible(false);	//hiding enter button
+   			pettyWap.reName(letters.getText());	//getting text in text field and setting to name or species
+   			pettyWap.evolve(letters1.getText());
+   			messageBox(pettyWap); //outputting new pet's status
+   			playPet.setVisible(true);	//revealing user options -modify or access
+			checkPet.setVisible(true);
+			picLabel.setVisible(true);	//revealing label and pet image 
+			picLabel.setIcon(pic1);	//for initial custom creation - pet is picture one 
+			/*As pet evolves, its image changes */
+			switch(track){
+				case 0: picLabel.setIcon(pic0);break;
+   				case 1: picLabel.setIcon(pic1);break;
+   				case 2: picLabel.setIcon(pic2);break;
+   				case 3: picLabel.setIcon(pic3);break;
+   				case 4: picLabel.setIcon(pic4);break;
+   				case 5: picLabel.setIcon(pic5);break;
+   				case 6: picLabel.setIcon(pic6);break;
+   				case 7: picLabel.setIcon(pic7);break;
+   			}
+		}
+		/*if user wants to change pet/play with pet*/
+		if(buttonObj==playPet){	
+			evolveBu.setVisible(true);	//specific modifying options revealed
+			feedBu.setVisible(true);
+			growBu.setVisible(true);
+			vegasBu.setVisible(true);
+			playPet.setVisible(false);	//hides two general options
+			checkPet.setVisible(false);
+			backBu.setVisible(true);	//reveals back button
+		}
+		/*if user wants to access pet values*/
+		if(buttonObj==checkPet){
+			healthBu.setVisible(true); //specific accessing options revealed
+			ageBu.setVisible(true);
+			hungerBu.setVisible(true);
+			nameBu.setVisible(true);
+			speciesBu.setVisible(true);
+			playPet.setVisible(false);	//hides two general options
+			checkPet.setVisible(false);
+			backBu.setVisible(true); //reveals back button
+		}
+		/*if user wants to evolve pet*/
+		if(buttonObj==evolveBu){	
+			evolveBu.setVisible(false);	//specific options hidden
+			feedBu.setVisible(false);
+			growBu.setVisible(false);
+			vegasBu.setVisible(false);
+			enterBu.setVisible(true);	//enter/finalizing button revealed
+			letters.setVisible(true);	//text fields for input revealed
+   			letters1.setVisible(true);
+   			if(track!=7) track++; //changing pet's image tracker 
+   			else track=1; //resetting to 1st image if cycled through 7 times
 
 		}
-		else if (buttonObj == hame){
-			 picLabel.setIcon(pic2);
-
+		/*if user wants to go back to general options*/
+		if(buttonObj==backBu){
+			playPet.setVisible(true);	//revealing general options
+			checkPet.setVisible(true);
+			evolveBu.setVisible(false);//hiding all specific modifying/accessing options
+			feedBu.setVisible(false);
+			growBu.setVisible(false);
+			vegasBu.setVisible(false);
+			healthBu.setVisible(false);
+			ageBu.setVisible(false);
+			hungerBu.setVisible(false);
+			nameBu.setVisible(false);
+			speciesBu.setVisible(false);	
+			backBu.setVisible(false); //hiding back button
 		}
-		else if (buttonObj == ha){
-			 picLabel.setIcon(pic3);
+		if(buttonObj==feedBu){
+			pettyWap.feedPet();	//if user wants to feed pet, pet's hunger decreases
+			messageBox(pettyWap);//outputting pet status
 		}
-		else if (buttonObj == clickMe){
-			 numClicked++;
+		if(buttonObj==growBu){
+			pettyWap.growPet();	//if user wants to grow pet, pet's age increases
+			messageBox(pettyWap);//outputting pet status
 		}
-    }
+		if(buttonObj==vegasBu){
+			pettyWap.throwHealth(); //if user wants to gamble pet's health, randomize pet's health
+			messageBox(pettyWap);//outputting pet status
+		}
+		if(buttonObj==healthBu){//if user wants to know pet's health, outputting pet's health
+			messageBox("I have "+pettyWap.getHealth() + "health....");
+		}
+		if(buttonObj==ageBu){ //if user wants to know pet's age, outputting pet's age
+			messageBox("What's my age? It's "+ pettyWap.getAge() + " Milennia old!");
+		}
+		if(buttonObj==hungerBu){//if user wants to know pet's hunger, outputting pet's hunger
+			messageBox(pettyWap.getHunger());
+		}
+		if(buttonObj==nameBu){ //if user wants to know pet's name, outputting pet's name
+			messageBox(pettyWap.getName());
+		}
+		if(buttonObj==speciesBu){ //if user wants to know pet's species, outputting pet's species
+			messageBox(pettyWap.getSpecies());
+		}
+   	 }
 
     public static void main(String[] args) {
-     Frame frm = new GB_Frame_Practice();
-     frm.setSize(750, 750);
-     frm.setVisible(true);
-
+     Frame frm = new PikaPet_GUI(); //instantiating GUI/frame
+     frm.setSize(1500, 1000); //setting frame size
+     frm.setVisible(true); //turning frame visibility on
+	 frm.setTitle("THE REAL PIKAPET GAME"); //setting frame's title
     }
 }
