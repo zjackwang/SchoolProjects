@@ -1,0 +1,120 @@
+/**
+ * @(#)Madd_Matrix.java
+ *	This program creates a default 10x15 size matrix
+ *	for the user to
+ *
+ * @author Jack Wang
+ * @version 1.00 2017/10/26
+ */
+import TerminalIO.*;
+public class Madd_Matrix {
+
+    public static void main(String[] args) {
+        KeyboardReader in = new KeyboardReader();
+       	int[][] aMatrix = new int[10][15];
+       	int[][] bMatrix = new int[10][15];
+       	int[][] aHolder = new int[10][15];
+       	int choice=0;
+
+		System.out.println("Welcome to the Madd	Matrix Program");
+		System.out.println("There are two 10x15 sized matrices");
+		System.out.println("The A matrix is mostly used, but the B matrix"
+					+"is used in randomizing values, adding, and outputting");
+    	while(choice<8){
+    		choice=in.readInt("Menu\n1.Randomize values\n2.Scalar multiply matrix\n3.Reverse rows"
+    							+"\n4.Reverse columns\n5.Add two matrices\n6.Resize matrices\n7.Print Matrix \n8.Exit\n");
+    		switch(choice){
+    			case 1: for(int a=0; a<aMatrix.length; a++)
+ 						{
+ 							for(int b=0; b<aMatrix[a].length; b++)
+ 							{
+ 								aMatrix[a][b]=(int)(Math.random()*100+1);
+ 								bMatrix[a][b]=(int)(Math.random()*100+1);
+ 							}
+ 						}
+ 						break;
+
+ 				case 2: int inMult=in.readInt("Enter a value to multiply the first matrix by");
+ 						for(int c=0; c<aMatrix.length; c++)
+ 						{
+ 							for(int d=0; d<aMatrix[c].length; d++)
+ 							{
+ 								aMatrix[c][d]*=inMult;
+ 							}
+ 						}
+ 						break;
+
+ 				case 3: aHolder=aMatrix;
+ 						for(int e=0; e<aMatrix.length; e++)
+ 						{
+ 							aHolder[e]=aMatrix[aMatrix.length-e-1];
+ 						}
+ 						aMatrix=aHolder;
+ 						break;
+ 				case 4: for(int g=0; g<aMatrix.length; g++)
+ 						{
+ 							for(int h=0; h<aMatrix[1].length; h++)
+ 							{
+ 								aHolder[g][h]=aMatrix[g][aMatrix[1].length-1-h];
+ 							}
+ 						}
+ 						aMatrix=aHolder;
+ 						break;
+ 				case 5:	for(int j=0; j<aMatrix.length; j++)
+ 						{
+ 							for(int l=0; l<aMatrix[1].length; l++)
+ 							{
+ 								aMatrix[j][l]+=bMatrix[j][l];
+ 							}
+ 						}
+ 						break;
+ 				case 6: int r=in.readInt("Please enter the row size desired: ");
+ 						int c=in.readInt("Please enter the column size desired: ");
+ 						int[][] bigSmallHold=new int[r][c];
+ 					if(r<aMatrix.length){
+ 						for(int m=0; m<bigSmallHold.length; m++)
+ 						{
+ 							if(c<aMatrix[1].length)
+ 							{	
+ 								for(int n=0; n<bigSmallHold[1].length; n++)
+ 								{
+ 									bigSmallHold[m][n]=aMatrix[m][n];
+ 								
+ 								}
+ 							}
+ 							if(c>aMatrix[1].length)
+ 							{
+ 								for(int )
+ 							}
+ 						}
+ 						aMatrix=bigSmallHold;
+ 					}
+ 						
+ 						
+ 						
+ 						break;
+ 				case 7: System.out.println("Matrix A:\n");
+ 						for(int i=0; i<aMatrix.length; i++)
+						{
+							for(int k=0; k<aMatrix[i].length; k++)
+							{
+								System.out.print(aMatrix[i][k]+" ");
+							}
+							System.out.println();
+						}
+						System.out.println("\nMatrix B:\n");
+ 						for(int o=0; o<aMatrix.length; o++)
+						{
+							for(int p=0; p<aMatrix[o].length; p++)
+							{
+								System.out.print(bMatrix[o][p]+" ");
+							}
+							System.out.println();
+						}
+						break;
+				case 8: break;
+				default: System.out.println("Please enter a value between 1 and 8");
+    				}
+    		}
+    	}
+}
