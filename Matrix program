@@ -18,9 +18,9 @@ public class Madd_Matrix {
 
 		System.out.println("Welcome to the Madd	Matrix Program");
 		System.out.println("There are two 10x15 sized matrices");
-		System.out.println("The A matrix is mostly used, but the B matrix"
+		System.out.println("The A matrix is mostly used, \nbut the B matrix"
 					+"is used in randomizing values, adding, and outputting");
-    	while(choice<8){
+    	while(choice!=8){
     		choice=in.readInt("Menu\n1.Randomize values\n2.Scalar multiply matrix\n3.Reverse rows"
     							+"\n4.Reverse columns\n5.Add two matrices\n6.Resize matrices\n7.Print Matrix \n8.Exit\n");
     		switch(choice){
@@ -47,11 +47,12 @@ public class Madd_Matrix {
  				case 3: aHolder=aMatrix;
  						for(int e=0; e<aMatrix.length; e++)
  						{
- 							aHolder[e]=aMatrix[aMatrix.length-e-1];
+ 							aHolder[e]=aMatrix[aMatrix.length-1-e];
  						}
  						aMatrix=aHolder;
  						break;
- 				case 4: for(int g=0; g<aMatrix.length; g++)
+ 				case 4: aHolder=aMatrix;
+ 						for(int g=0; g<aMatrix.length; g++)
  						{
  							for(int h=0; h<aMatrix[1].length; h++)
  							{
@@ -71,41 +72,60 @@ public class Madd_Matrix {
  				case 6: int r=in.readInt("Please enter the row size desired: ");
  						int c=in.readInt("Please enter the column size desired: ");
  						int[][] bigSmallHold=new int[r][c];
- 					if(r<aMatrix.length){
- 						for(int m=0; m<bigSmallHold.length; m++)
+ 					if(r<aMatrix.length)
+ 					{
+ 						for(int z=0; z<r; z++)
  						{
- 							if(c<aMatrix[1].length)
- 							{	
- 								for(int n=0; n<bigSmallHold[1].length; n++)
+ 							if(c>=aMatrix[0].length)
+ 							{
+ 								for(int y=0; y<aMatrix[0].length; y++)
  								{
- 									bigSmallHold[m][n]=aMatrix[m][n];
- 								
+ 									bigSmallHold[z][y]=aMatrix[z][y];
  								}
  							}
- 							if(c>aMatrix[1].length)
+ 							else if(c<aMatrix[0].length)
  							{
- 								for(int )
+ 								for(int x=0; x<c; x++)
+ 								{
+ 									bigSmallHold[z][x]=aMatrix[z][x];
+ 								}
  							}
- 						}
- 						aMatrix=bigSmallHold;
+ 						}aMatrix=bigSmallHold;
+ 					}	
+ 					else if(r>=aMatrix.length)
+ 					{
+ 						for(int w=0; w<aMatrix.length; w++)
+ 						{
+ 							if(c>=aMatrix[0].length)
+ 							{
+ 								for(int y=0; y<aMatrix[0].length; y++)
+ 								{
+ 									bigSmallHold[w][y]=aMatrix[w][y];
+ 								}
+ 							}
+ 							else if(c<aMatrix[0].length)
+ 							{
+ 								for(int x=0; x<c; x++)
+ 								{
+ 									bigSmallHold[w][x]=aMatrix[w][x];
+ 								}
+ 							}
+ 						}aMatrix=bigSmallHold;
  					}
- 						
- 						
- 						
  						break;
  				case 7: System.out.println("Matrix A:\n");
  						for(int i=0; i<aMatrix.length; i++)
 						{
-							for(int k=0; k<aMatrix[i].length; k++)
+							for(int k=0; k<aMatrix[0].length; k++)
 							{
 								System.out.print(aMatrix[i][k]+" ");
 							}
 							System.out.println();
 						}
 						System.out.println("\nMatrix B:\n");
- 						for(int o=0; o<aMatrix.length; o++)
+ 						for(int o=0; o<bMatrix.length; o++)
 						{
-							for(int p=0; p<aMatrix[o].length; p++)
+							for(int p=0; p<bMatrix[0].length; p++)
 							{
 								System.out.print(bMatrix[o][p]+" ");
 							}
