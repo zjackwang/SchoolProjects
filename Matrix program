@@ -1,66 +1,72 @@
 /**
  * @(#)Madd_Matrix.java
  *	This program creates a default 10x15 size matrix
- *	for the user to
+ *	for the user to perform simple operations, such as 
+ *  scalar multiplying, adding, reversing columns and rows
+ *  and resizing.
  *
  * @author Jack Wang
  * @version 1.00 2017/10/26
  */
-import TerminalIO.*;
+import TerminalIO.*; //external jar for keyboard reader
 public class Madd_Matrix {
 
     public static void main(String[] args) {
-        KeyboardReader in = new KeyboardReader();
-       	int[][] aMatrix = new int[10][15];
-       	int[][] bMatrix = new int[10][15];
-       	int[][] aHolder = new int[10][15];
-       	int choice=0;
+        KeyboardReader in = new KeyboardReader(); //instantiating keyboardreader, user input
+       	int[][] aMatrix = new int[10][15]; //instantiating primary matrix 10x15
+       	int[][] bMatrix = new int[10][15]; //instatiating secondary matrix 10x15
 
+       	int choice=0; //int tracking user menu selection
+		//Initial menu prompting user
 		System.out.println("Welcome to the Madd	Matrix Program");
 		System.out.println("There are two 10x15 sized matrices");
 		System.out.println("The A matrix is mostly used, \nbut the B matrix"
 					+"is used in randomizing values, adding, and outputting");
-    	while(choice!=8){
-    		choice=in.readInt("Menu\n1.Randomize values\n2.Scalar multiply matrix\n3.Reverse rows"
-    							+"\n4.Reverse columns\n5.Add two matrices\n6.Resize matrices\n7.Print Matrix \n8.Exit\n");
-    		switch(choice){
+    	//loop for continuous user interaction with program
+    	while(choice!=8){//reading in user selection
+    		choice=in.readInt("Menu\n1.Randomize values\n2.Scalar multiply matrix\n3.Reverse column order"
+    							+"\n4.Reverse row order\n5.Add two matrices\n6.Resize matrices\n7.Print Matrix \n8.Exit\n");
+    		switch(choice){ //action for each choice
+    			//randomizing matrix A and B's integers with nested for loop 
     			case 1: for(int a=0; a<aMatrix.length; a++)
  						{
  							for(int b=0; b<aMatrix[a].length; b++)
- 							{
+ 							{	//numbers from 1 to 100
  								aMatrix[a][b]=(int)(Math.random()*100+1);
  								bMatrix[a][b]=(int)(Math.random()*100+1);
  							}
  						}
  						break;
-
- 				case 2: int inMult=in.readInt("Enter a value to multiply the first matrix by");
+				//scalar multiplying matrix A 
+ 				case 2: int inMult=in.readInt("Enter a value to multiply the first matrix by"); //reading in user scalar
  						for(int c=0; c<aMatrix.length; c++)
  						{
  							for(int d=0; d<aMatrix[c].length; d++)
  							{
- 								aMatrix[c][d]*=inMult;
+ 								aMatrix[c][d]*=inMult; //nested for loop to multiply each matrix value 
  							}
  						}
  						break;
-
- 				case 3: aHolder=aMatrix;
- 						for(int e=0; e<aMatrix.length; e++)
+				//reversing order of column 
+ 				case 3: int[][] aHolder = new int[aMatrix.length][aMatrix[1].length]; //temporary matrix same size as matrix A 
+ 						for(int r=aMatrix.length-1; r>=0; r--)
  						{
- 							aHolder[e]=aMatrix[aMatrix.length-1-e];
+ 							aHolder[r]=aMatrix[aMatrix.length-1-r]; //setting temp. matrix's array in reverse order as matrix A's
  						}
- 						aMatrix=aHolder;
+ 						aMatrix=aHolder; //set matrix A to temp. matrix
  						break;
- 				case 4: aHolder=aMatrix;
- 						for(int g=0; g<aMatrix.length; g++)
+ 				//reversing order of rows 
+ 				case 4: int[][] bHolder = new int[aMatrix.length][aMatrix[1].length]; //temporar matrix same size as matrix A 
+ 						for(int r=0; r<aMatrix.length; r++)
  						{
- 							for(int h=0; h<aMatrix[1].length; h++)
+ 							for(int c=0; c<aMatrix[1].length; c++)
  							{
- 								aHolder[g][h]=aMatrix[g][aMatrix[1].length-1-h];
+ 								bHolder[r][c]=aMatrix[r][aMatrix[1].length-1-c]; //nested for loop to set temp. matrix's row values in reverse as matrix A
  							}
  						}
- 						aMatrix=aHolder;
+ 						aMatrix=bHolder; //setting matrix A to temp. matrix
  						break;
+ 				//adding two matrices together
  				case 5:	for(int j=0; j<aMatrix.length; j++)
  						{
  							for(int l=0; l<aMatrix[1].length; l++)
@@ -69,51 +75,60 @@ public class Madd_Matrix {
  							}
  						}
  						break;
- 				case 6: int r=in.readInt("Please enter the row size desired: ");
+ 				/*
+ 				 * Resizing Matrix A: Smaller resizing - fill up new matrix with old matrix using new matrix's parameters
+ 				 *			 		  Bigger (or equal) resizing - fill up new matrix with old matrix using old matrix's parameters
+ 				 */
+ 				case 6: int r=in.readInt("Please enter the row size desired: "); //reading in desired row and column size 
  						int c=in.readInt("Please enter the column size desired: ");
- 						int[][] bigSmallHold=new int[r][c];
+ 						int[][] bigSmallHold=new int[r][c]; //creating temp. array 
+ 					//if inputted row size smaller than original
  					if(r<aMatrix.length)
- 					{
+ 					{	//for loop, times looping equal to inputted row size
  						for(int z=0; z<r; z++)
- 						{
+ 						{	//if inputted column size greater than or equal to original column size 
  							if(c>=aMatrix[0].length)
- 							{
+ 							{	//nested for loop until original column size 
  								for(int y=0; y<aMatrix[0].length; y++)
  								{
- 									bigSmallHold[z][y]=aMatrix[z][y];
+ 									bigSmallHold[z][y]=aMatrix[z][y]; //
  								}
  							}
+ 							//if inputted column size less than original column size
  							else if(c<aMatrix[0].length)
- 							{
+ 							{	//nested for loop until inputted column size
  								for(int x=0; x<c; x++)
  								{
  									bigSmallHold[z][x]=aMatrix[z][x];
  								}
- 							}
- 						}aMatrix=bigSmallHold;
- 					}	
+ 							} 
+ 						}aMatrix=bigSmallHold; //original matrix now equal to resized matrix
+ 					}
+ 					//if inputted row size greater than or equal to original row size 
  					else if(r>=aMatrix.length)
- 					{
+ 					{	//for loop, times looping equal to original row size 
  						for(int w=0; w<aMatrix.length; w++)
- 						{
+ 						{	//if inputted column size greater than or equal to original column size
  							if(c>=aMatrix[0].length)
- 							{
+ 							{	//nested for loop until original column size
  								for(int y=0; y<aMatrix[0].length; y++)
  								{
- 									bigSmallHold[w][y]=aMatrix[w][y];
+ 									bigSmallHold[w][y]=aMatrix[w][y]; 
  								}
  							}
+ 							//if inputted column size less than original column size
  							else if(c<aMatrix[0].length)
- 							{
+ 							{	//nested for loop until inputted column size
  								for(int x=0; x<c; x++)
  								{
  									bigSmallHold[w][x]=aMatrix[w][x];
  								}
  							}
- 						}aMatrix=bigSmallHold;
+ 						}aMatrix=bigSmallHold; //original matrix equal to resized matrix
  					}
  						break;
- 				case 7: System.out.println("Matrix A:\n");
+ 				//printing out matrix A and B
+ 				case 7: System.out.println("Matrix A:\n"); //nested for loop to print out matrix A 
  						for(int i=0; i<aMatrix.length; i++)
 						{
 							for(int k=0; k<aMatrix[0].length; k++)
@@ -122,7 +137,7 @@ public class Madd_Matrix {
 							}
 							System.out.println();
 						}
-						System.out.println("\nMatrix B:\n");
+						System.out.println("\nMatrix B:\n"); //nested for loop to print out matrix B
  						for(int o=0; o<bMatrix.length; o++)
 						{
 							for(int p=0; p<bMatrix[0].length; p++)
@@ -132,8 +147,9 @@ public class Madd_Matrix {
 							System.out.println();
 						}
 						break;
-				case 8: break;
-				default: System.out.println("Please enter a value between 1 and 8");
+				case 8: break; //exits program
+				default: System.out.println("Please enter a value between 1 and 8"); //Reprimanding errant input
+						break;
     				}
     		}
     	}
