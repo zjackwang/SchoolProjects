@@ -1,0 +1,70 @@
+/**
+ * @(#)Hangman.java
+ *
+ * Hangman application
+ *
+ * @author
+ * @version 1.00 2018/1/25
+ */
+import BreezySwing.*;
+import java.awt.*;
+import javax.swing.*;
+import java.util.*;
+import java.io.*;
+public class Hangman extends GBFrame {
+
+	static Scanner wordIn=null;
+	static ArrayList<String> words=new ArrayList<String>();
+
+	private int numClicked;
+	private String word;
+
+	JButton enter1 = addButton("Enter", 0, 4, 2, 2);
+	JButton enter2 = addButton("Enter", 0, 8, 2, 2);
+
+	JLabel picLabel = addLabel("", 10, 5, 10, 10);
+	ImageIcon pic1 = new ImageIcon("Head.jpg");
+    ImageIcon pic2 = new ImageIcon("HeadAndBody.jpg");
+    ImageIcon pic3 = new ImageIcon("HBA.jpg");
+    ImageIcon pic4 = new ImageIcon("HB2A.jpg");
+    ImageIcon pic5 = new ImageIcon("HB2AL.jpg");
+    ImageIcon pic6 = new ImageIcon("HB2A2L.jpg");
+
+	IntegerField counter;
+	JTextArea showWord;
+
+
+	JTextField guessLetter = addTextField("Enter a one letter guess", 20, 5, 5, 10);
+	JTextField guessPhrase= addTextField("Enter a guess for the entire phrase/word", 20, 5, 5, 10);
+
+	public Hangman(){
+		readIn();
+		picLabel.setVisible(false);
+		messageBox("Welcome to the HANGMAN GAME... click to continue", 20, 20);
+
+	}
+	private void readIn(){
+		try{
+			wordIn=new Scanner(new File("words.txt"));
+			while(wordIn.hasNextLine()){
+				words.add(wordIn.nextLine());
+			}
+
+		}catch(IOException ioex){};
+	}
+
+	public void menuItemSelected(JMenuItem mi){
+
+	}
+	public void buttonClicked(JButton buttonObj){
+
+
+	}
+
+    public static void main(String[] args) {
+	 Frame frm = new Hangman();
+     frm.setSize(750, 750);
+     frm.setVisible(true);
+
+    }
+}
