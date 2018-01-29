@@ -11,16 +11,18 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
-public class Hangman extends GBFrame {
+public class Hanggman extends GBFrame {
 
-	static Scanner wordIn=null;
-	static ArrayList<String> words=new ArrayList<String>();
 
-	private int numClicked;
-	private String word;
+	private ArrayList<String> text=new ArrayList<String>();
 
-	JButton enter1 = addButton("Enter", 0, 4, 2, 2);
-	JButton enter2 = addButton("Enter", 0, 8, 2, 2);
+	private int numWrong, count=0;
+	private String word, guess, guessed;
+
+	JButton enterL = addButton("Enter for one letter guess", 0, 4, 2, 2);
+	JButton enterW = addButton("Enter for entire phrase guess", 0, 8, 2, 2);
+
+	JMenuItem newWordItem= addMenuItem("Options", "New word");
 
 	JLabel picLabel = addLabel("", 10, 5, 10, 10);
 	ImageIcon pic1 = new ImageIcon("Head.jpg");
@@ -30,41 +32,72 @@ public class Hangman extends GBFrame {
     ImageIcon pic5 = new ImageIcon("HB2AL.jpg");
     ImageIcon pic6 = new ImageIcon("HB2A2L.jpg");
 
-	IntegerField counter;
-	JTextArea showWord;
+	IntegerField counter= addIntegerField(0, 200, 5, 10, 20);
+	JTextField showWordField=addTextField("", 5, 5, 7, 10);
 
 
-	JTextField guessLetter = addTextField("Enter a one letter guess", 20, 5, 5, 10);
-	JTextField guessPhrase= addTextField("Enter a guess for the entire phrase/word", 20, 5, 5, 10);
+	JTextField guessWordField = addTextField("Enter a one letter guess", 20, 5, 5, 10);
 
-	public Hangman(){
+	public Hanggman(){
 		readIn();
-		picLabel.setVisible(false);
-		messageBox("Welcome to the HANGMAN GAME... click to continue", 20, 20);
+		messageBox("Welcome to the HANGMAN GAME... click 'Okay' to continue", 500, 200);
 
 	}
 	private void readIn(){
+		Scanner wordIn=null;
 		try{
 			wordIn=new Scanner(new File("words.txt"));
 			while(wordIn.hasNextLine()){
-				words.add(wordIn.nextLine());
+				text.add(wordIn.nextLine());
 			}
 
 		}catch(IOException ioex){};
 	}
 
 	public void menuItemSelected(JMenuItem mi){
+		if(mi==newWordItem){
+			if(count==(text.size()-1)){
+				count=0;
+			}
+				word=text.get(count);
 
+				guessed="";
+				for(int i=0; i<word.length(); i++){
+					guessed+="_ ";
+				}
+				showWordField=addTextField(guessed, 5, 5, 7, 10);
+				count++;
+		}
 	}
 	public void buttonClicked(JButton buttonObj){
+		if(buttonObj==enterL){
+			boolean isFound=false;
+			guess="";
+			for(int i=0; i<word.length(); i++){
+				if(enterL.getText().charAt(0)==word.charAt(i)){
+					guess+=word.charAt(i)+" ";
+					isFound=true;
+				}else guess+="_ ";
+			}guessed=guess;
 
-
+			if(guess.toLowerCase().equals(word)){
+				messageBox("CONGRADULATIONS, YOU HAVE WON HANGMAN! PRESS 'NEW WORD' FOR A NEW GAME");
+			}else{
+				showWordField.setText(guessed);
+				if(!isFound)
+					numWrong++;
+			}
+		}
+		if(buttonObj==enterW){
+			if(guessWordField.getText().equals(word))
+				messageBox("CONGRADULATIONS, YOU HAVE WON HANGMAN! PRESS 'NEW WORD' FOR A NEW GAME");
+				else numWrong++;
+		}
 	}
 
     public static void main(String[] args) {
-	 Frame frm = new Hangman();
+	 Frame frm = new Hanggman();
      frm.setSize(750, 750);
      frm.setVisible(true);
-
     }
 }
